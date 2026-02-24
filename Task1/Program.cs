@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            // НАЧАЛО взаимодействия с пользователем
             int price = 0; // цена продукта
             do
             {
@@ -17,7 +18,9 @@
                     Console.WriteLine(e.Message);
                 }
             } while (price < 1 || price > 9999);
+            // КОНЕЦ взаимодействия с пользователем
 
+            // НАЧАЛО логики
             int rubles = price / 100; // рубли
             int cents = price % 100; // копейки
             string r_line = ""; // слова, которые будем склонять
@@ -56,12 +59,18 @@
                 c_line = " копеек";
             }
 
+            var OutMsg = "";
             if (rubles != 0 && cents != 0)
-                Console.WriteLine(rubles + r_line + ", " + cents + c_line);
+                OutMsg = rubles.ToString() + r_line + ", " + cents.ToString() + c_line;
             else if (cents != 0)
-                Console.WriteLine(cents + c_line);
+                OutMsg = cents.ToString() + c_line;
             else
-                Console.WriteLine(rubles + r_line + " ровно");
+                OutMsg = rubles.ToString() + r_line + " ровно";
+            // КОНЕЦ логики
+            
+            // НАЧАЛО взаимодействия с пользователем
+            Console.WriteLine(OutMsg);
+            // КОНЕЦ взаимодействия с пользователем
         }
     }
 }

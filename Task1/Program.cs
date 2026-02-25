@@ -4,68 +4,56 @@ namespace Task1
 {
     public class Logic
     {
-        public static string wordForm (int amount, string type)
+        public static string Total (int price)
         {
-            var word = "";
-            try
+            int rubles = price / 100; // рубли
+            int cents = price % 100; // копейки
+            string r_line = "";
+            string c_line = "";
+
+            if (rubles >= 10 && rubles <= 14)
             {
-                if (type == "rubles")
-                {
-                    if (amount >= 10 && amount <= 14)
-                    {
-                        word = " рублей";
-                    }
-                    else if (amount % 10 == 1)
-                    {
-                        word = " рубль";
-                    }
-                    else if (amount % 10 >= 2 && amount % 10 <= 4)
-                    {
-                        word = " рубля";
-                    }
-                    else if (amount % 10 >= 5 && amount % 10 <= 9)
-                    {
-                        word = " рублей";
-                    }
-                }
-                else if (type == "cents")
-                {
-                    if (amount >= 10 && amount <= 14)
-                    {
-                        word = " копеек";
-                    }
-                    else if (amount % 10 == 1)
-                    {
-                        word = " копейка";
-                    }
-                    else if (amount % 10 >= 2 && amount % 10 <= 4)
-                    {
-                        word = " копейки";
-                    }
-                    else if (amount % 10 >= 5 && amount % 10 <= 9)
-                    {
-                        word = " копеек";
-                    }
-                }
-                else
-                    throw new Exception("Неправильно указан тип слова: \"rubles/cents\"");
+                r_line = " рублей";
             }
-            catch (Exception e)
+            else if (rubles % 10 == 1)
             {
-                Console.WriteLine(e.Message);
+                r_line = " рубль";
             }
-            return word;
-        }
-        public static string msgForm (int r, int c, string r_line, string c_line)
-        {
-            var word = "";
-            if (r != 0 && c != 0)
-                word = r + r_line + ", " + c + c_line;
-            else if (c != 0)
-                word = c + c_line;
+            else if (rubles % 10 >= 2 && rubles % 10 <= 4)
+            {
+                r_line = " рубля";
+            }
+            else if (rubles % 10 >= 5 && rubles % 10 <= 9)
+            {
+                r_line = " рублей";
+            }
+
+            if (cents >= 10 && cents <= 14)
+            {
+                c_line = " копеек";
+            }
+            else if (cents % 10 == 1)
+            {
+                c_line = " копейка";
+            }
+            else if (cents % 10 >= 2 && cents % 10 <= 4)
+            {
+                c_line = " копейки";
+            }
+            else if (cents % 10 >= 5 && cents % 10 <= 9)
+            {
+                c_line = " копеек";
+            }
+
+            string outMsg = "";
+            if (rubles != 0 && cents != 0)
+                outMsg = rubles + r_line + ", " + cents + c_line;
+            else if (cents != 0)
+                outMsg = cents + c_line;
             else
-                word = r + r_line + " ровно";
-            return word;
+                outMsg = rubles + r_line + " ровно";
+
+            return outMsg;
         }
         
     }
@@ -96,14 +84,7 @@ namespace Task1
             // КОНЕЦ взаимодействия с пользователем
 
             // НАЧАЛО логики
-            int rubles = price / 100; // рубли
-            int cents = price % 100; // копейки
-            string r_line = ""; // слова, которые будем склонять
-            string c_line = "";
-            r_line = Logic.wordForm(rubles, "rubles");
-            c_line = Logic.wordForm(cents, "cents");
-
-            string OutMsg = Logic.msgForm(rubles, cents, r_line, c_line);
+            string OutMsg = Logic.Total(price);
             // КОНЕЦ логики
 
             // НАЧАЛО взаимодействия с пользователем

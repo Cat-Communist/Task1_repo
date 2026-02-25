@@ -103,7 +103,7 @@ namespace Task1
             r_line = Logic.wordForm(rubles, "rubles");
             c_line = Logic.wordForm(cents, "cents");
 
-            var OutMsg = Logic.msgForm(rubles, cents, r_line, c_line);
+            string OutMsg = Logic.msgForm(rubles, cents, r_line, c_line);
             // КОНЕЦ логики
 
             // НАЧАЛО взаимодействия с пользователем

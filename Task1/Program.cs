@@ -55,7 +55,6 @@ namespace Task1
 
             return outMsg;
         }
-        
     }
     internal class Program
     {

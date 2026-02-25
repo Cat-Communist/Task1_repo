@@ -48,7 +48,7 @@ namespace Task1
                     }
                 }
                 else
-                    throw new Exception("Неправильно указан тип слова: rubles/cents");
+                    throw new Exception("Неправильно указан тип слова: \"rubles/cents\"");
             }
             catch (Exception e)
             {
@@ -60,11 +60,11 @@ namespace Task1
         {
             var word = "";
             if (r != 0 && c != 0)
-                word = r.ToString() + r_line + ", " + c.ToString() + c_line;
+                word = r + r_line + ", " + c + c_line;
             else if (c != 0)
-                word = c.ToString() + c_line;
+                word = c + c_line;
             else
-                word = r.ToString() + r_line + " ровно";
+                word = r + r_line + " ровно";
             return word;
         }
         

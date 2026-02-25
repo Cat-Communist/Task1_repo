@@ -1,5 +1,74 @@
-﻿namespace Task1
+﻿using System.Data;
+
+namespace Task1
 {
+    public class Logic
+    {
+        public static string wordForm (int amount, string type)
+        {
+            var word = "";
+            try
+            {
+                if (type == "rubles")
+                {
+                    if (amount >= 10 && amount <= 14)
+                    {
+                        word = " рублей";
+                    }
+                    else if (amount % 10 == 1)
+                    {
+                        word = " рубль";
+                    }
+                    else if (amount % 10 >= 2 && amount % 10 <= 4)
+                    {
+                        word = " рубля";
+                    }
+                    else if (amount % 10 >= 5 && amount % 10 <= 9)
+                    {
+                        word = " рублей";
+                    }
+                }
+                else if (type == "cents")
+                {
+                    if (amount >= 10 && amount <= 14)
+                    {
+                        word = " копеек";
+                    }
+                    else if (amount % 10 == 1)
+                    {
+                        word = " копейка";
+                    }
+                    else if (amount % 10 >= 2 && amount % 10 <= 4)
+                    {
+                        word = " копейки";
+                    }
+                    else if (amount % 10 >= 5 && amount % 10 <= 9)
+                    {
+                        word = " копеек";
+                    }
+                }
+                else
+                    throw new Exception("Неправильно указан тип слова: rubles/cents");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return word;
+        }
+        public static string msgForm (int r, int c, string r_line, string c_line)
+        {
+            var word = "";
+            if (r != 0 && c != 0)
+                word = r.ToString() + r_line + ", " + c.ToString() + c_line;
+            else if (c != 0)
+                word = c.ToString() + c_line;
+            else
+                word = r.ToString() + r_line + " ровно";
+            return word;
+        }
+        
+    }
     internal class Program
     {
         static void Main(string[] args)
@@ -12,8 +81,14 @@
                 try
                 {
                     price = int.Parse(Console.ReadLine());
+                    if (price < 1 || price > 9999)
+                        throw new Exception("Число должно быть в пределах от 1 до 9999");
                 }
                 catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
@@ -25,49 +100,12 @@
             int cents = price % 100; // копейки
             string r_line = ""; // слова, которые будем склонять
             string c_line = "";
-            if (rubles >= 10 && rubles <= 14)
-            {
-                r_line = " рублей";
-            }
-            else if (rubles % 10 == 1)
-            {
-                r_line = " рубль";
-            }
-            else if (rubles % 10 >= 2 && rubles % 10 <= 4)
-            {
-                r_line = " рубля";
-            }
-            else if (rubles % 10 >= 5 && rubles % 10 <= 9)
-            {
-                r_line = " рублей";
-            }
+            r_line = Logic.wordForm(rubles, "rubles");
+            c_line = Logic.wordForm(cents, "cents");
 
-            if (cents >= 10 && cents <= 14)
-            {
-                c_line = " копеек";
-            }
-            else if (cents % 10 == 1)
-            {
-                c_line = " копейка";
-            }
-            else if (cents % 10 >= 2 && cents % 10 <= 4)
-            {
-                c_line = " копейки";
-            }
-            else if (cents % 10 >= 5 && cents % 10 <= 9)
-            {
-                c_line = " копеек";
-            }
-
-            var OutMsg = "";
-            if (rubles != 0 && cents != 0)
-                OutMsg = rubles.ToString() + r_line + ", " + cents.ToString() + c_line;
-            else if (cents != 0)
-                OutMsg = cents.ToString() + c_line;
-            else
-                OutMsg = rubles.ToString() + r_line + " ровно";
+            var OutMsg = Logic.msgForm(rubles, cents, r_line, c_line);
             // КОНЕЦ логики
-            
+
             // НАЧАЛО взаимодействия с пользователем
             Console.WriteLine(OutMsg);
             // КОНЕЦ взаимодействия с пользователем

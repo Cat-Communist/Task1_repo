@@ -4,13 +4,13 @@ namespace Task1
 {
     public class Logic
     {
-        public static string Total (int price)
+        public static string DeclineBySum (int price)
         {
-            int rubles = price / 100; // рубли
-            int cents = price % 100; // копейки
-            string r_line = "";
-            string c_line = "";
+            int rubles = price / 100;
+            int cents = price % 100;
 
+            var r_line = "";
+            var c_line = "";
             if (rubles >= 10 && rubles <= 14)
             {
                 r_line = " рублей";
@@ -45,9 +45,9 @@ namespace Task1
                 c_line = " копеек";
             }
 
-            string outMsg = "";
+            var outMsg = "";
             if (rubles != 0 && cents != 0)
-                outMsg = rubles + r_line + ", " + cents + c_line;
+                outMsg = rubles + r_line + " " + cents + c_line;
             else if (cents != 0)
                 outMsg = cents + c_line;
             else
@@ -61,7 +61,7 @@ namespace Task1
         static void Main(string[] args)
         {
             // НАЧАЛО взаимодействия с пользователем
-            int price = 0; // цена продукта
+            var price = 0; // цена продукта
             do
             {
                 Console.Write("Введите цену продукта: ");
@@ -83,7 +83,7 @@ namespace Task1
             // КОНЕЦ взаимодействия с пользователем
 
             // НАЧАЛО логики
-            string OutMsg = Logic.Total(price);
+            var OutMsg = Logic.DeclineBySum(price);
             // КОНЕЦ логики
 
             // НАЧАЛО взаимодействия с пользователем

@@ -11,68 +11,68 @@ namespace Task1.Tests
     [TestClass()]
     public class LogicTests
     {
-        [TestMethod()]
-        public void wordForm1suite()
-        {
-            // Arrange + Action
-            string rubles = Logic.wordForm(11, "rubles");
-            string cents = Logic.wordForm(11, "cents");
-
-            // Assert
-            Assert.AreEqual(rubles, " рублей");
-            Assert.AreEqual(cents, " копеек");
-        }
 
         [TestMethod()]
-        public void wordForm2suite()
+        public void ZeroCents()
         {
-            // Arrange + Action
-            string rubles = Logic.wordForm(21, "rubles");
-            string cents = Logic.wordForm(21, "cents");
+            // Arrange
+            int price = 300;
 
-            // Assert
-            Assert.AreEqual(rubles, " рубль");
-            Assert.AreEqual(cents, " копейка");
-        }
-
-        [TestMethod()]
-        public void wordForm3suite()
-        {
-            // Arrange + Action
-            string rubles = Logic.wordForm(24, "rubles");
-            string cents = Logic.wordForm(24, "cents");
-
-            // Assert
-            Assert.AreEqual(rubles, " рубля");
-            Assert.AreEqual(cents, " копейки");
-        }
-
-        [TestMethod()]
-        public void wordForm4suite()
-        {
-            // Arrange + Action
-            string rubles = Logic.wordForm(25, "rubles");
-            string cents = Logic.wordForm(25, "cents");
-
-            // Assert
-            Assert.AreEqual(rubles, " рублей");
-            Assert.AreEqual(cents, " копеек");
-        }
-
-        [TestMethod()]
-        public void wordFormArgTest()
-        {
             // Action
-            try
-            {
-                Logic.wordForm(12, "Huh?");
-            }
+            string res = Logic.UpdateCase(price);
 
             // Assert
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
+            Assert.AreEqual("3 рубля ровно", res);
+        }
+
+        [TestMethod()]
+        public void ZeroRubles()
+        {
+            // Arrange
+            int price = 99;
+
+            // Action
+            string res = Logic.UpdateCase(price);
+
+            // Assert
+            Assert.AreEqual("99 копеек", res);
+        }
+
+        [TestMethod()]
+        public void Nominative()
+        {
+            // Arrange
+            int price = 101;
+
+            // Action
+            string res = Logic.UpdateCase(price);
+
+            // Assert
+            Assert.AreEqual("1 рубль 1 копейка", res);
+        }
+
+        [TestMethod()]
+        public void GenitivePlural()
+        {
+            // Arrange
+            int price1 = 1414;
+            int price2 = 2626;
+
+            // Action
+            string res1 = Logic.UpdateCase(price1);
+            string res2 = Logic.UpdateCase(price2);  
+
+            // Assert
+            Assert.AreEqual("14 рублей 14 копеек", res1);
+            Assert.AreEqual("26 рублей 26 копеек", res2);
+        }
+
+        [TestMethod()]
+        public void GenitiveSingular()
+        {
+            int price = 2323;
+            string res = Logic.UpdateCase(price);
+            Assert.AreEqual("23 рубля 23 копейки", res);
         }
     }
 }
